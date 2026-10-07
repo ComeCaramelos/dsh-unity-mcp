@@ -1,0 +1,47 @@
+# Dev
+.probe/
+_reference/
+.smoke/home*/
+
+# Windows-Chrome prelaunch links the browser profile into the workspace as .chrome
+.chrome
+
+# Dependencies
+node_modules/
+
+# Build / dist
+dist/
+
+# Build output (generated from src/*.ts by `npm run build`; never hand-edit)
+lib/
+
+# npm cache (workspace-local)
+.npm-cache/
+
+# Docs (working notes live here; they are not part of the published bundle)
+docs/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+*Zone.Identifier
+
+# Editor
+.idea/
+.vscode/*
+!.vscode/settings.json
+*.swp
+*.swo
+*~
+
+# Env
+.env
+.env.*
+!.env.example

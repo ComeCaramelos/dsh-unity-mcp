@@ -1,0 +1,5 @@
+- insert:
+    - id: mcp-unity
+      name: '@comecaramelos/dsh-unity-mcp'
+      config:
+        serverName: unity
