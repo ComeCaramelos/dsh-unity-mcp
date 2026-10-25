@@ -1,5 +1,55 @@
 # @comecaramelos/dsh-unity-mcp
 
+> [!WARNING]
+> **Deprecated.** This plugin is no longer maintained. Use
+> [dsh-mcp-manager](https://github.com/ComeCaramelos/dsh-mcp-manager) instead: it
+> connects the Unity relay (and any other MCP server) as a plain `stdio`
+> connection. See [Migrating to dsh-mcp-manager](#migrating-to-dsh-mcp-manager).
+
+## Migrating to dsh-mcp-manager
+
+The manager requires dsh `^0.2.0`.
+
+1. Remove this plugin:
+
+   ```sh
+   dsh plugin --profile web remove @comecaramelos/dsh-unity-mcp
+   ```
+
+   If it still shows up in `dsh.profile.bundles` of the profile's
+   `package.json`, delete that line.
+
+2. Install the manager:
+
+   ```sh
+   dsh plugin --profile web add @comecaramelos/dsh-mcp-manager
+   ```
+
+3. In **Plugins → MCP connections → MCP connections**, hit *Add connection* and
+   create a `stdio` connection with your old settings:
+
+   | dsh-unity-mcp | dsh-mcp-manager |
+   | --- | --- |
+   | `serverName` (`unity`) | `id` — keep `unity` so tools stay `mcp__unity__*` |
+   | **Unity relay executable** / `relayPath` | `command` |
+   | `--mcp` + **Extra flags** / `extraFlags` | `args`, one per line, `--mcp` first |
+   | **Reduce log output** | stderr → *Log file* |
+
+   For example:
+
+   ```yml
+   - id: unity
+     kind: stdio
+     enabled: true
+     command: /mnt/c/Users/<user>/.unity/relay/relay_win.exe
+     args:
+       - --mcp
+       - --project-path=C:\Users\<user>\game
+     stderrMode: log
+   ```
+
+The rest of this README documents the plugin as it was.
+
 Connects DSH to the **Unity MCP** server — the `unity-ai-relay` executable the
 Unity AI Assistant package (`com.unity.ai.assistant`) installs — through the
 stock `@deepseek-ai/dsh-mcp-client` stdio bridge, plus a settings/status card in
